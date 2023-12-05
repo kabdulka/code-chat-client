@@ -2,7 +2,7 @@ import React from "react";
 import { ChatBubbleLeftRightIcon, PhoneIcon } from "@heroicons/react/20/solid";
 
 const Header = ({ chat }) => {
-
+    console.log("chat desc ", chat.description)
     return (
        <div className="chat-header">
             <div className="flexbetween">
@@ -11,7 +11,12 @@ const Header = ({ chat }) => {
             </div>
             <div className="flexbetween">
                 <PhoneIcon className="icon-phone"/>
-                <p className="header-text"> {chat.description} </p>
+                    {
+                        chat.description !== "⬅️ ⬅️ ⬅️" ?
+                      ( <p className="header-text"> {chat.description} </p> ) :
+                      ( <p className="header-text"> {"no chat selected"} </p> )
+                    } 
+     
             </div>
        </div>
     )
