@@ -7,6 +7,7 @@ const App: React.FC = () => {
   return  (
     <div className="app">
       <BrowserRouter>
+  
         <Routes>
           <Route path="/chat"  element={ <Chat /> }/>
         </Routes>

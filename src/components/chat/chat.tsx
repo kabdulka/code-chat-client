@@ -1,7 +1,7 @@
 import React from "react"
 import { useMultiChatLogic, MultiChatSocket, MultiChatWindow } from "react-chat-engine-advanced"
 import Header from "../header/header";
-import MessageForm from "../MessageForm/MessageForm";
+import StandardMessageForm from "../MessageForm/StandardMessageForm";
 
 const Chat = () => {
     console.log(import.meta.env.BASE_URL);
@@ -24,7 +24,7 @@ const Chat = () => {
                 renderChatHeader={(chat) => <Header chat={chat}/>}
                 renderMessageForm={(props) => {
                     return (
-                        <MessageForm props={props} activeChat={chatProps.chat} />
+                        <StandardMessageForm props={props} activeChat={chatProps.chat} />
                     )
                 }}
             />
