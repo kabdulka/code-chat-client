@@ -1,7 +1,9 @@
+
 import React from "react"
 import { useMultiChatLogic, MultiChatSocket, MultiChatWindow } from "react-chat-engine-advanced"
 import Header from "../header/header";
 import StandardMessageForm from "../MessageForm/StandardMessageForm";
+
 
 const Chat = () => {
     console.log(import.meta.env.BASE_URL);
@@ -11,8 +13,6 @@ const Chat = () => {
         "kenan",
         "1234", 
     );
-
-    console.log(chatProps);
  
     return (
 

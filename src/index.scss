@@ -52,6 +52,15 @@ body,
     // width: 2rem;
     color: #00b5e0;
     border: red solid 1px;
+    font-size: 0.5rem;
+    min-width: 8rem;
+    // min-height: ;
+}
+
+.dropzone-content__container {
+  display: flex;
+  gap: 1rem;
+  border: white solid 1px;
 }
 
 .login-page {
