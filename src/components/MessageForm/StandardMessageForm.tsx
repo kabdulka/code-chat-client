@@ -1,8 +1,8 @@
 
 import { useState } from "react";
-import { useCallback } from "react";
-import { PaperAirplaneIcon, PaperClipIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import {useDropzone} from "react-dropzone";
+
+import MessageFormUI from "./MessageFormUI";
+
 // import Dropzone from "dropzone";
 // import Dropzone from "react-dropzone";
 
@@ -24,10 +24,10 @@ import {useDropzone} from "react-dropzone";
 const StandardMessageForm = ({ props, activeChat }) => {
     // console.log(props);
     // console.log(activeChat);
-    const [message, setMessage] = useState("");
-    const [attachment, setAttachment] = useState("");
+    const [message, setMessage] = useState<string>("");
+    const [attachment, setAttachment] = useState<File>(null);
     // preview image that we want
-    const [preview, setPreview] = useState("");
+    // const [preview, setPreview] = useState("");
 
     const handleChange = (event) => setMessage(event.target.value)
 
@@ -47,142 +47,18 @@ const StandardMessageForm = ({ props, activeChat }) => {
     
         props.onSubmit(form);
         setMessage("");
-        setAttachment("");
+        setAttachment(null);
     };
 
-    const onDrop = useCallback ((acceptedFiles) => {
-
-        if (acceptedFiles.length > 0) {
-            const file = acceptedFiles[0];
-            // console.log(isDragActive);
-            console.log(acceptedFiles);
-            setAttachment(file);
-
-            // create a preview URL for the dropped file
-            const previewURL = URL.createObjectURL(file);
-            setPreview(previewURL);
-        }
-    }, []);
-
-    const {getRootProps, getInputProps, open, isDragActive} = useDropzone({
-        accept: '.jpeg, .jpg, .png',
-        // accept: {'images': ['image/jpeg', 'image/jpg', 'image/png']},
-        multiple: false,
-        noClick: true,
-        onDrop: onDrop
-    });
-
-    // const files = acceptedFiles.map((file) => (
-    //     <li key={file.name}>
-    //         {file.name} - {file.size} bytes
-    //     </li>
-    // ));
-
-    // const handleDrop = (acceptedFiles: File[]) => {
-    //     if (acceptedFiles.length > 0) {
-    //         const file = acceptedFiles[0]
-
-    //         setAttachment(file.name);
-
-    //         // create a preview URL for the dropped file
-    //         const previewURL = URL.createObjectURL(file);
-    //         setPreview(previewURL)
-    //     }
-    // };
-
     return (
-        <div className="message-form-container"> 
-            {
-                preview && (
-                    <div className="message-form-preview">
-                        <img className="message-form-preview-image" 
-                            alt="message-form-preview"
-                            src={preview} 
-                            // onLoad frees up resources when image not needed anymore
-                            onLoad={() => URL.revokeObjectURL(preview)}
-                        />
-                        <XMarkIcon 
-                            className="message-form-icon-x"
-                            onClick={() => {
-                                setPreview("");
-                                setAttachment("");
-                            }}
-                        />
-                    </div>
-                )
-            }
-            <div className="message-form">
-                <div className="message-form-input-container">
-                    <input 
-                        className="message-form-input"
-                        type="text"
-                        value={message}
-                        onChange={handleChange}
-                        placeholder="Send a Message..."
-                    />
-                </div>
-                <div className="message-form-icons">
-                
-                    <div {...getRootProps()}>              
-                        <input {...getInputProps()}/>
-                        <div className="dropzone-content__container">
 
-                        <PaperClipIcon
-                            className="message-form-icon-clip"
-                            onClick={open}
-                        />
-                            {
-                                isDragActive ? (
-                                <p className="dropzone-content"> Drop the files here ... </p> ):(
-                                <p className="dropzone-content">Drag and drop the files here, or click to select files</p>)
-                            }        
-                        </div>
-
-                    </div>
-                    {/* Method 2: using Dropzone component */}
-                    {/* <Dropzone
-                        acceptedFiles=".jpg,.jpeg,.png"
-                        multiple={false}
-                        noClick={true}
-                        // onDrop={(acceptedFiles) => {
-                        //     setAttachment(acceptedFiles[0]);
-                        //     setPreview(URL.createObjectURL(acceptedFiles[0]));
-                        //     // if (acceptedFiles.length > 0) {
-                        //     //     const file = acceptedFiles[0];
-                        //     //     // console.log(isDragActive);
-                        //     //     console.log(acceptedFiles);
-                        //     //     setAttachment(file.name);
-                    
-                        //     //     // create a preview URL for the dropped file
-                        //     //     const previewURL = URL.createObjectURL(file);
-                        //     //     setPreview(previewURL);
-                        //     // }
-                        // }}
-                        onDrop={onDrop}
-                    >
-                        {({ getRootProps, getInputProps, open }) => (
-                            <div {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                <PaperClipIcon
-                                    className="message-form-icon-clip"
-                                    onClick={open}
-                                />
-                            </div>
-                        )}
-                    </Dropzone> */}
-                    
-                    <hr className="vertical-line"/>
-                    {/* Submit  */}
-                    <PaperAirplaneIcon 
-                        className="message-form-icon-airplane"
-                        onClick={() => {
-                            setPreview("");
-                            handleSubmit();
-                        }}
-                    />
-                </div>
-            </div>
-        </div>
+        <MessageFormUI 
+            setAttachment={setAttachment}
+            message={message}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+        />
+        
     );
 };
 
