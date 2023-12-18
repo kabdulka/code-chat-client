@@ -3,7 +3,8 @@ import React from "react"
 import { useMultiChatLogic, MultiChatSocket, MultiChatWindow } from "react-chat-engine-advanced"
 import Header from "../header/header";
 import StandardMessageForm from "../MessageForm/StandardMessageForm";
-
+import Ai from "../MessageForm/Ai";
+import AiCode from "../MessageForm/AiCode";
 
 const Chat = () => {
     console.log(import.meta.env.BASE_URL);
@@ -23,6 +24,16 @@ const Chat = () => {
                 style={{ height: "100vh" }}
                 renderChatHeader={(chat) => <Header chat={chat}/>}
                 renderMessageForm={(props) => {
+                    if (chatProps.chat?.title.startsWith("AiChat_") ) {
+                        return (
+                            <Ai props={props} activeChat={chatProps.chat} />
+                        )
+                    }
+                    if (chatProps.chat?.title.startsWith("AiCode_") ) {
+                        return (
+                            <AiCode props={props} activeChat={chatProps.chat} />
+                        )
+                    }
                     return (
                         <StandardMessageForm props={props} activeChat={chatProps.chat} />
                     )
