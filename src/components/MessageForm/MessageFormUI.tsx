@@ -7,7 +7,9 @@ const MessageFormUI = ({
     setAttachment,
     message,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    recommendedText,
+    handleKeyDown
 }) => {
 
     // preview image that we want
@@ -61,8 +63,18 @@ const MessageFormUI = ({
                         type="text"
                         value={message}
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                         placeholder="Send a Message..."
                     />
+                    {recommendedText && (
+                        <input 
+                            className="message-form-assist"
+                            type="text"
+                            disabled={true}
+                            value={`${message} ${recommendedText}`}
+
+                        />
+                    )}
                 </div>
                 <div className="message-form-icons">
                 
