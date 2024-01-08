@@ -5,6 +5,7 @@ import Header from "../header/header";
 import StandardMessageForm from "../MessageForm/StandardMessageForm";
 import Ai from "../MessageForm/Ai";
 import AiCode from "../MessageForm/AiCode";
+import AiAssist from "../MessageForm/AiAssist";
 
 const Chat = () => {
     console.log(import.meta.env.BASE_URL);
@@ -32,6 +33,11 @@ const Chat = () => {
                     if (chatProps.chat?.title.startsWith("AiCode_") ) {
                         return (
                             <AiCode props={props} activeChat={chatProps.chat} />
+                        )
+                    }
+                    if (chatProps.chat?.title.startsWith("AiAssist_") ) {
+                        return (
+                            <AiAssist props={props} activeChat={chatProps.chat} />
                         )
                     }
                     return (

@@ -32,7 +32,6 @@ export const api = createApi({
 });
 
 export const {
-    // usePostAiTextMutation
     usePostAiTextMutation,
     usePostAiCodeMutation,
     usePostAiAssistMutation,
